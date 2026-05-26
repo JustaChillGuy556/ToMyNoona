@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For My Love 💌</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, #ffecd2, #fcb69f),
+                linear-gradient(135deg, #f6d365, #fda085);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #5c3d2e;
+            padding: 40px 15px;
+        }
+
+        .floating-hearts span {
+            position: fixed;
+            bottom: -20px;
+            font-size: 20px;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeDown 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #4a2c2a;
+            line-height: 1.8;
+            font-weight: 600;
+         }   
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 28px;
+            margin-bottom: 28px;
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .card.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            top: -60px;
+            right: -60px;
+        }
+
+        .card h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #4b2e2e;
+        }
+
+        .card p {
+        line-height: 1.9;
+        color: #3f2b2b;
+        font-size: 16px;
+        font-weight: 500;
+        }
+
+        .btn-area {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .love-btn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 100px;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.35s ease;
+            box-shadow: 0 10px 25px rgba(255, 118, 136, 0.35);
+        }
+
+        .love-btn:hover {
+            transform: scale(1.08);
+        }
+
+        .love-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Modal */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 999;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            animation: pop 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content h2 {
+        color: #4a1f1f;
+        font-size: 34px;
+        margin-bottom: 20px;
+        }
+
+        .modal-content p {
+        color: #4a2c2a;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-weight: 500;
+        }
+
+        .close-btn {
+            background: white;
+            color: #ff6b81;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Music Bar */
+
+        .music-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            transition: 0.3s;
+            z-index: 1000;
+        }
+
+        .music-bar:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Mobile */
+
+        @media(max-width: 600px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .card h2 {
+                font-size: 20px;
+            }
+
+            .card p {
+                font-size: 14px;
+            }
+
+            .love-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="bgMusic" loop>
+    <source src="replay.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="hearts"></div>
+
+    <!-- Music Button -->
+    <div class="music-bar" onclick="playLove()">
+        🎵
+    </div>
+
+    <div class="container">
+
+        <div class="hero">
+            <h1>TO MY LOVE 💖</h1>
+
+            <p>
+                ချစ်ဇနီးလေးးရေ ကျွန်တော့်ရဲ့ ချစ်စရာ‌အကောင်းဆုံးလေးဖြစ်သော မမသဒ္ဒါကလေးရေ အသဲနှလုံးလေးး ချစ်မဝလေးရေ ချစ်ဆုံးမမရေ မနေ့ညက ဟောဒီက မမရဲ့ ကလေးလေးက မမစကားကိုနားမထောင်မိသလိုဖြစ်သွားပြီး မမကို စိတ်တို စိတ်ဆိုးစေမိခဲ့တယ်ပေါ့နော်မမ ဒါကြောင့် ကျွန်တော်က ချစ်ရဆုံးသော မမသဒ္ဒါကလေးကို စိတ်ရှည်လက်ရှည်နဲ့ မငြိုငြင်ပဲ ကျေကျေနပ်နပ်ချော့ပါမယ်နော်ဗျ ဒါကြောင့်မလို့ မမဘေဘီလေးကို ချော့ခွင့်ပြုပါအုန်းနော်ဗျ။ 🙇🏻 
+                <br><br>
+                (ဟော ဒါနဲ့ သီချင်းလေးနဲ့ ဖတ်ဖို့ ညာဘက်အပေါ်ထောင့်က Music Icon လေးကို မနှိပ်ရသေးရင် နှိပ်လိုက်ပါအုန်းနော်ဗျ နှိပ်ပြီးပြီဆိုရင်တော့ ထပ်နှိပ်စရာမလိုတော့ပါဘူးးနော်ဗျ 🎵 )
+            </p>
+        </div>
+
+        <div class="card">
+            <h2> အောက်မှာ ရှင်းပြမှာလေးတွေကို သေချာလေးနားထောင်ပေးပါနော်ချစ်သူလေးခင်ဗျ 🌸</h2>
+
+            <p>
+                မနေ့က ကျွန်တော်မလိမ္မာခဲ့တာဝန်ခံပါတယ်နော်မမ တကယ်ဆိုအဲ့လိုမလုပ်သင့်ဘူးလေနော်ဗျ မမက အိပ်ဆို တန်းအိပ်သင့်တာလေနော်  ဒါပေမယ့်ကျွန်တော်လည်း ဘာလို့အဲ့လိုလုပ်ရလဲဆိုတာကို ရှင်းပြဖို့ရှိတာမလို့ အချစ်ကလေးနားထောင်ပေးပါအုန်းနော်ဗျ ဒါပေမယ့် ခုကျွန်‌တော်အချစ်ကလေးကို ပြောမှာတွေက ဆင်ခြေပေးတာမျိုးလုံးးဝမဟုတ်ကြောင်း ကြိုတင်အသိပေးထားပါရစေနော်ဗျ ကျွန်တော် တွေးခဲ့ပုံ ဘာကြောင့်အဲ့လိုလုပ်ခဲ့လဲဆိုတာကို ကိုယ့်ချစ်ဇနီးလေး သိစေဖို့ ရှင်းပြမှာပဲဖြစ်ပါတယ်နော်ခင်ဗျ ဒါကြောင့်မလို့ မမကလေးလေးကိုရှင်းပြခွင့်ပြုပါအုန်းနော်ချစ်သူလေးးရေ။
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>မမဘေဘီလေးမှ မမစကားကိုဘာလို့မနားထောင်မိခဲ့ရတာလဲ? 💞</h2>
+
+            <p>
+                ပထမဆုံးအနေနဲ့ကတော့ မမစကားဘာလို့ နားမထောင်ခဲ့မိရတာလဲပေါ့နော် အဓိကကတော့ မမနဲ့အတူလိုက်အိပ်ချင်လို့ပေါ့နော်မမ ဖြစ်ချင်တော့ ကိုယ့်အမျိုးသမီးလေးက ထမင်းစားပြီးခါစဖြစ်နေတော့ ကျွန်တော်စောင့်ချင်သွားတာပါနော်ဗျ ကိုယ့်အမျိုးသမီးလေးက ကျွန်တော်အိပ်ချင်နေတာကို အိပ်စေချင်တာမို့ အိပ်ခိုင်းတာကျွန်တော်နားလည်ပါတယ်နော်ဗျ ဒီက ကလေးစိတ်နဲ့ လိုက်အိပ်ဖို့ကိုသာ အတင်းငြင်းနေမိခဲ့တာပေါ့နော် ပြီးတော့ ငြင်းနေရင်း ကိုယ့်အမျိုးသမီးလေးက ဗိုက်အောင့်နေတယ်ဆိုတော့ ပိုတောင်မအိပ်ချင် ဖြစ်ခဲ့ရပါတယ်နော်ဗျ ကျွန်တော်က မမရဲ့ အနားမှာရှိပေးချင်လို့လေနော် မမဗိုက်အောင့်နေတာကို တစ်ယောက်တည်း ထားခဲ့ပြီး မအိပ်နိုင်တာကြောင့်ပါနော်ဗျ ဒါကြောင့်မလို့ မမဘေဘီလေးက မမကိုစိတ်ပူလို့ စိတ်မချလို့ အိပ်ဖို့ငြင်းဆန်ခဲ့တာပါနော်ဗျ အဲ့လိုပြောလို့ ကျွန်တော်မှန်တယ်လို့လည်း မဆိုလိုပါဘူးးနော်မမ ဒီလူက မမစကားနားမထောင်တည်းက မမှန်တော့ပါဘူးးနော်ဗျ ဒါကြောင့်မလို့ ခုပြောခဲ့တာတွေက ကျွန်တော်ဘာလို့ မမစကားကိုနားမထောင်ခဲ့မိလဲဆိုတာကို သေချာရှင်းပြထားတာပါနော်ဗျ နော်ချစ်သူလေးး နော်
+            </p>
+        </div>
+
+        <div class="card">
+            <h2> မမကိုစိတ်ပူတာကြောင့် မမအိပ်မယ်ပြောတာကိုလည်း ထက်ပြီး ငြင်းဆန်ခဲ့မိတာပါနော်မမ 😿</h2>
+
+            <p>
+                ကိုယ့်အမျိုးသမီးလေး နေလည်းမကောင်းနေတာကို ကျွန်တော့်ကြောင့်စိတ်တိုသွားရတာမို့ ဆောရီးးပါနော်မမ အချစ်ကလေးကို စိတ်တိုစေဖို့ လုံးးဝမရည်ရွယ်ပါဘူးနော် ကျွန်တော်တွေးမိတာတစ်ခုတည်းက မမကိုစောင့်ပြီး မမနဲ့အတူအိပ်ဖို့ပါနော်ဗျ ဒါပေမယ့်အချစ်ကလေးက ဗိုက်လည်းအောင့်/ ထမင်းစားပြီးတာမကြာသေးပဲနဲ့ အိပ်မယ်ပြောတာကြောင့် ကျွန်တော်ကလည်း မမအိပ်မပျော်မှာ/ အစာမကြေမှာစိုးတာကြောင့် ထပ်ပြီး အတွန့်တက်မိသလိုဖြစ်သွားပါတယ်နော်မမ ဒါကြောင့် အဲ့လိုလုပ်တာကလည်း မမကိုစိတ်တိုစေဖို့ စိတ်ရှုပ်စေဖို့မဟုတ်ဘဲ မမကိုစိတ်ပူတာကြောင့်ဆိုတာသိထားပေးပါနော်အချစ်ကလေးခင်ဗျာ
+            </p>
+        </div>
+
+         <div class="card">
+            <h2> နောက်ဆို မမစကားနားထောင်ပါ့မယ်လို့ ကျွန်တော်ဆုံးဖြတ်လိုက်ပါပြီနော်မမ 😼</h2>
+
+            <p>
+                ကျွန်တော်မနေ့ညက မမကို အတင်းးငြင်းပြီး မမစကားနားမထောင်ခဲ့မိတာကိုတွေးကြည့်ရင် ကိုယ့်ကိုအရမ်းးအရမ်းဆိုးမှန်းသိလိုက်ရပါတယ်နော်ဗျ ဒါကြောင့်မလို့ နောက်ခါတွေကျရင် မမစကားကိုနားထောင်ပြီး မမရဲ့ လိမ္မာတဲ့ကလေးလေးဖြစ်အောင် ကြိုးစားမယ်လို့ ဆုံးဖြတ်လိုက်ပါတယ်နော်ဗျ ဒါကြောင့် နောက်ခါ မမဒီလိုလုပ်ဆို လုပ်ပါတော့မယ်နော် အတွန့်တက်တာတွေ အရစ်ရှည်တာတွေ ငြင်းတာတွေ မလုပ်တော့ပါဘူးနော်ဗျ ဒါကြောင့်မလို့ ကိုယ့်ဇနီးလေးအနေနဲ့ မမကလေးလေး လိမ္မာတော့မယ်လို့ မှတ်ချင်မှတ်နိုင်ပါတယ်နော်ဗျ ဘာလို့ဆို ဒီလူက ပိုပိုပြီး လိမ္မာအောင် ပြုပြင်နေပြီမလို့လေနော်မမ
+            </p>
+        </div>
+
+        <div class="card">
+            <h2> ချစ်တဲ့ကြောင်းလေးတွေနဲ့အတူ.. 💞</h2>
+
+            <p>
+                ဟော ကိုယ့်အမျိုးသမီးလေးက ကျွန်တော် မမကို မချစ်တော့ဘူးလို့ ထင်ကောင်းထင်နိုင်တာမို့ ချစ်တဲ့ကြောင်းတွေလည်း ဖွဲ့ကာ နွဲ့ကာ ပြောချင်ပါသေးတယ်နော်ဗျ ကျွန်တော်ကတော့လေ သေသေချာချာကြီး ခံစားမိတယ်ဗျသိလားမမ ဘာကိုလဲဆို ကျွန်တော်အချစ်ကလေးကို နေ့စဥ်နဲ့အမျှအကြိမ်ကြိမ်အခါခါ သိပ်ချစ်ကြောင်းတွေ အရမ်းးချစ်ကြောင်းတွေ များးကြီးချစ်ကြောင်းတွေ ပြောနေပေမယ့်လေ ချစ်လို့ ဝတယ်လို့ကို မခံစားရဘူးဗျသိလား စကားလုံးလေးတွေအဖြစ်နဲ့သာ ဖော်ပြနေပေမယ့် ရင်ထဲမှာတော့ မမအတွက်အချစ်တွေက ပြည့်လျှံလို့နေပါတယ်နော်ဗျ မမအတွက်ပါပဲနော် ဒါကြောင့်လည်း ချစ်မဝလေးလို့ ပြောနေရတာပါနော်ဗျ အဲ့အချစ်တွေအကုန်လုံးသာ အရာဝတ္ထုတစ်ခုခုအဖြစ် ဖန်တီးခွင့်ရှိခဲ့မယ်ဆို ကျွန်တော်တို့နှစ်ယောက်တည်းနေလို့ရမယ့် ဂြိုလ်တစ်လုံးလောက် ဖန်တီးနိုင်တဲ့ အချစ်ပမာဏရှိပါတယ်နော်ဗျ ဒါကြောင့်မလို့ ချစ်တဲ့ကြောင်းတွေချည်းသာ တစ်ထိုင်တည်းပြောလို့ကတော့ ဒီတစ်သက် ပြောလို့ပြီးမယ်လို့တောင် မထင်မိပါဘူးနော်အချစ်ကလေးးရေ သိပ်ချစ်တယ်မမ အရမ်းးအရမ်းးအရမ်းချစ်တယ်နော်မမ သိပ်သိပ်ချစ်တယ်
+            </p>
+        </div>
+
+        <div class="card">
+            <h2> စိတ်ကောက်ပြေပေးပါတော့နော်မမ 🤍</h2>
+
+            <p>
+                အကျဥ်းချုံးအနေနဲ့ပြောရမယ်ဆိုရင် ကျွန်တော်မမစကားနားမထောင်ခဲ့မိတဲ့အတွက် ‌ဆောရီးးးပါနော်အချစ်‌ရေ ကျွန်တော်ကလည်း ကလေးစိတ်နဲ့ကြောင့်ရယ် မမကိုစိုးရိမ်လို့ကြောင့်ရယ် ငြင်းနေခဲ့မိတာပါနော်ဗျ အဲ့လိုအဖြစ်မျိုးလည်း နောက်မဖြစ်ရလေအောင် လိမ်လိမ်မာမာနေပြီး အစွမ်းကုန်ကြိုးစားပြုပြင်ပါ့မယ်နော်မမ ဒါကြောင့်မလို့ ကျွန်တော့်ကိုစောင့်ကြည့်နိုင်ပါတယ်နော်အချစ်ဆုံးလေးခင်ဗျာ ဟော ပြီးတော့ ကျွန်တော်ခုအပေါ်မှာပြောခဲ့တာတွေက အကုန်အမှန်တွေချည်းပါပဲနော်ဗျ အပိုစကားတွေ အလိမ်အညာတွေ စိတ်ထဲကမပါတဲ့စကားတွေ လုံးးဝလုံးဝမပါပါဘူးနော်ဗျ အကုန်လုံးက ရင်ထဲ နှလုံးသားလေးထဲကနေလာတဲ့ အစစ်အမှန်တွေပဲမလို့လေနော် ကိုယ့်အမျိုးသမီးလေးအနေနဲ့ စိတ်ချလက်ချယုံကြည်လိုက်နို်င်ပါတယ်နော်ဗျ 
+                <br><br>
+                ကဲ ဆိုတော့ ကျွန်တော့်ရဲ့ အချစ်ရဆုံးသော ချစ်သူလေးးရေ ချစ်ဇနီးမယားလေးရေ သတို့သမီးလေး‌ရေ ချစ်ဖို့အကောင်းးဆုံး အမျိုးသမီးငယ်လေးရေ ကျွန်တော် ဇွဲထက်အောင်ကို စိတ်ဆိုးပြေပေးပါတော့နော်ဗျ 🫶🏻💗
+                <br><br>
+                ကိုယ့်ချစ်ဇနီးလေးအနေနဲ့ စိတ်ဆိုးပြေပြီဆိုရင်တော့ အောက်က ခလုတ်လေးကို နှိပ်ပေးပါနော်ဗျ 😽
+            </p>
+        </div>
+
+        <div class="btn-area">
+            <button class="love-btn" onclick="openModal()">
+                မမဘေဘီလေးကို စိတ်ဆိုးပြေပါပြီရှင့် 💝
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+
+        <div class="modal-content">
+
+            <h2>စိတ်ဆိုးပြေပေးလို့ ကျေးဇူးးများးရီးတင်ပါတယ်နော်အချစ်ရေးးး 😭💗</h2>
+
+            <p>
+                မမကလေးလေးကို စိတ်ဆိုးပြေပေးလို့ ဒီက များးကြီးမှများကြီး ကျေးဇူးတင်လိုက်ရပါတယ်နော်ဗျ ခုလိုမျိုး စာတွေဖတ်ပေးလို့လည်း နောက်တစ်ကြိမ် ကျေးဇူးတင်လိုက်ရပါတယ်နော်မမ နောက်ခါတွေလည်း မမသဒ္ဒါကလေးခုလို စိတ်မဆိုးရလေအောင် လိမ်လိမ်မာမာနေဖို့ ကြိုးစားနေလျက်ပါနော်ဗျ 
+                <br> အရမ်းးးအရမ်းချစ်တယ်အသဲနှလုံးလေးးရေ သိပ်ချစ်တယ် သိပ်သိပ်ချစ်တယ်နော်မမ အများးကြီးမှအများးကြီးချစ်တယ်ချစ်ဆုံးလေးရေ I LOVE YOUUUUUU, HONEYYY 😽🤍
+            </p>
+
+            <button class="close-btn" onclick="closeModal()">
+                I Love You Too 💘
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // Floating hearts generator
+
+        const heartsContainer = document.getElementById("hearts");
+
+        function createHeart() {
+
+            const heart = document.createElement("span");
+
+            heart.innerHTML = ["💖", "💗", "💕", "💘", "💞"][Math.floor(Math.random() * 5)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+
+            heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+            heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+
+        setInterval(createHeart, 500);
+
+        // Scroll reveal animation
+
+        const cards = document.querySelectorAll(".card");
+
+        window.addEventListener("scroll", reveal);
+
+        function reveal() {
+
+            const trigger = window.innerHeight * 0.85;
+
+            cards.forEach(card => {
+
+                const top = card.getBoundingClientRect().top;
+
+                if (top < trigger) {
+                    card.classList.add("show");
+                }
+
+            });
+
+        }
+
+        reveal();
+
+        // Modal
+
+        const modal = document.getElementById("modal");
+
+        function openModal() {
+
+            modal.style.display = "flex";
+
+            confettiBoom();
+        }
+
+        function closeModal() {
+
+            modal.style.display = "none";
+        }
+
+        // Fake music effect
+
+        const music = document.getElementById("bgMusic");
+
+function playLove() {
+
+    if (music.paused) {
+
+        music.play();
+
+        document.querySelector(".music-bar").innerHTML = "⏸️";
+
+    } else {
+
+        music.pause();
+
+        document.querySelector(".music-bar").innerHTML = "🎵";
+    }
+}
+
+        // Confetti Effect
+
+        function confettiBoom() {
+
+            for (let i = 0; i < 80; i++) {
+
+                const confetti = document.createElement("div");
+
+                confetti.style.position = "fixed";
+                confetti.style.width = "10px";
+                confetti.style.height = "10px";
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.top = "-20px";
+                confetti.style.background =
+                    `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+                confetti.style.zIndex = "9999";
+                confetti.style.borderRadius = "50%";
+
+                document.body.appendChild(confetti);
+
+                let fall = Math.random() * 3000 + 2000;
+
+                confetti.animate([
+                    {
+                        transform: `translateY(0px) rotate(0deg)`
+                    },
+                    {
+                        transform: `translateY(100vh) rotate(720deg)`
+                    }
+                ], {
+                    duration: fall,
+                    easing: "linear"
+                });
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, fall);
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
